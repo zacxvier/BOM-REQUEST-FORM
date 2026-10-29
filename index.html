@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill of Materials (BOM) Request Form - Alpatech</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #dc2626;
+            --border: #cbd5e1;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2.5rem 1rem;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            border-top: 6px solid var(--primary);
+            padding: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-flex {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-title h2 {
+            margin: 0;
+            font-size: 1.35rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-title p {
+            margin: 0.2rem 0 0 0;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #475569;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        .field-group input {
+            padding: 0.6rem 0.75rem;
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: var(--primary);
+            transition: all 0.2s;
+        }
+
+        .field-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .table-responsive {
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: #ffffff;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.85rem 0.75rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 0.6rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            background: #fff;
+        }
+
+        table input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid transparent;
+            padding: 0.4rem;
+            background: transparent;
+            font-size: 0.9rem;
+            color: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Custom dropdown wrapper to hide native select arrow when printing */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        table select {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid transparent;
+            padding: 0.4rem;
+            background: transparent;
+            font-size: 0.9rem;
+            color: var(--primary);
+            border-radius: 4px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+        }
+
+        table input:focus, table select:focus {
+            outline: none;
+            background: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+        }
+
+        .item-number {
+            text-align: center;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            background-color: #f1f5f9;
+            color: var(--primary);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #e2e8f0;
+        }
+
+        .btn-danger {
+            background-color: #fff5f5;
+            color: #b91c1c;
+            border-color: #fecaca;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .btn-danger:hover {
+            background-color: #fee2e2;
+        }
+
+        .auth-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            border-top: 2px solid var(--border);
+            padding-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .auth-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-box label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #475569;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-box input {
+            padding: 0.6rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background: #fff;
+        }
+
+        .auth-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #334155;
+        }
+
+        .btn-secondary {
+            background-color: #64748b;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #475569;
+        }
+
+        .form-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            letter-spacing: 0.5px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                border-top: none;
+            }
+            .action-col, .btn:not(.btn-primary), .action-buttons, button[onclick="addRow()"], .form-footer {
+                display: none !important;
+            }
+            table input, table select, input, select {
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+            /* Hide the dropdown arrow completely in print mode */
+            table select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-image: none !important;
+            }
+            .meta-grid {
+                background: transparent !important;
+                border: 1px solid var(--border);
+            }
+            #releasedBy:placeholder-shown {
+                color: transparent !important;
+                border-bottom: 1px solid #000 !important;
+                border-radius: 0 !important;
+                padding-left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-flex">
+        <div class="header-title">
+            <h2>Bill of Materials Request</h2>
+            <p>Internal Material Requisition Form</p>
+        </div>
+    </div>
+    
+    <form id="bomForm" onsubmit="event.preventDefault(); window.print();">
+        <!-- Project Information Grid -->
+        <div class="meta-grid">
+            <div class="field-group">
+                <label for="projectName">Project Name / Code</label>
+                <input type="text" id="projectName" name="projectName" required placeholder="e.g. *****">
+            </div>
+            <div class="field-group">
+                <label for="requiredDate">Requested Date</label>
+                <input type="date" id="requiredDate" name="requiredDate" required>
+            </div>
+        </div>
+
+        <!-- BOM Items Table -->
+        <div class="table-responsive">
+            <table id="bomTable">
+                <thead>
+                    <tr>
+                        <th style="width: 7%;">Item</th>
+                        <th style="width: 38%;">Description</th>
+                        <th style="width: 12%;">Qty</th>
+                        <th style="width: 18%;">Unit</th>
+                        <th style="width: 20%;">Remarks</th>
+                        <th style="width: 5%;" class="action-col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="item-number">1</td>
+                        <td><input type="text" name="description[]" placeholder="item description" required></td>
+                        <td><input type="number" name="quantity[]" min="1" value="1" required></td>
+                        <td>
+                            <div class="select-wrapper">
+                                <select name="unit[]">
+                                    <option value="pcs">Pc/s</option>
+                                    <option value="meters">Meter/s</option>
+                                    <option value="pairs">Pair/s</option>
+                                    <option value="rolls">Roll/s</option>
+                                    <option value="sets">Sets</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td><input type="text" name="remarks[]"></td>
+                        <td class="action-col" style="text-align: center;"><button type="button" class="btn btn-danger" onclick="removeRow(this)">×</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="btn-row">
+            <button type="button" class="btn" onclick="addRow()">+ Add Line Item</button>
+        </div>
+
+        <!-- Authorization / Sign-off -->
+        <div class="auth-section">
+            <div class="auth-box">
+                <label for="requestedBy">Requested By</label>
+                <input type="text" id="requestedBy" name="requestedBy" required placeholder="Full Name">
+            </div>
+            <div class="auth-box">
+                <label for="releasedBy">Released By</label>
+                <input type="text" id="releasedBy" name="releasedBy" placeholder="Full Name (Optional)">
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button type="button" class="btn-secondary" onclick="saveAsPDF()">Save as PDF</button>
+            <button type="submit" class="btn-primary">Print Request</button>
+        </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="form-footer">
+        &copy; 2026 ALPHATECH TRADING. All rights reserved.
+                           (Jeth)
+    </div>
+</div>
+
+<script>
+    function addRow() {
+        const tableBody = document.getElementById('bomTable').getElementsByTagName('tbody')[0];
+        const newRow = tableBody.insertRow();
+        const rowCount = tableBody.rows.length;
+        
+        newRow.innerHTML = `
+            <td class="item-number">${rowCount}</td>
+            <td><input type="text" name="description[]" placeholder="Component description" required></td>
+            <td><input type="number" name="quantity[]" min="1" value="1" required></td>
+            <td>
+                <div class="select-wrapper">
+                    <select name="unit[]">
+                        <option value="pcs">Pc/s</option>
+                        <option value="meters">Meter/s</option>
+                        <option value="pairs">Pair/s</option>
+                        <option value="rolls">Roll/s</option>
+                        <option value="sets">Sets</option>
+                    </select>
+                </div>
+            </td>
+            <td><input type="text" name="remarks[]"></td>
+            <td class="action-col" style="text-align: center;"><button type="button" class="btn btn-danger" onclick="removeRow(this)">×</button></td>
+        `;
+    }
+
+    function removeRow(button) {
+        const row = button.closest('tr');
+        const tableBody = document.getElementById('bomTable').getElementsByTagName('tbody')[0];
+        
+        if (tableBody.rows.length > 1) {
+            row.remove();
+            updateRowNumbers();
+        } else {
+            alert("The BOM must contain at least one item.");
+        }
+    }
+
+    function updateRowNumbers() {
+        const tableBody = document.getElementById('bomTable').getElementsByTagName('tbody')[0];
+        for (let i = 0; i < tableBody.rows.length; i++) {
+            tableBody.rows[i].cells[0].innerText = i + 1;
+        }
+    }
+
+    function saveAsPDF() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>
